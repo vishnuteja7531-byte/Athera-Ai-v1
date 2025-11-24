@@ -63,7 +63,7 @@ const Sidebar: React.FC = () => {
                     {user.email ? user.email[0].toUpperCase() : 'U'}
                  </div>
                  <div className="overflow-hidden">
-                     <div className="text-xs font-medium text-primary truncate">{user.displayName || 'User'}</div>
+                     <div className="text-xs font-medium text-primary truncate">{user.user_metadata?.name || 'User'}</div>
                      <div className="text-[10px] text-muted truncate">{user.email}</div>
                  </div>
             </div>
@@ -136,7 +136,7 @@ const Sidebar: React.FC = () => {
           />
         ) : (
            <NavItem 
-            to="/login"
+            to="/auth/login"
             label="Log In" 
             icon={
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>

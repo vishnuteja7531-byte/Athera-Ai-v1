@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import ChatLayout from '../layouts/ChatLayout';
-import ChatBox from '../components/ChatBox';
-import MessageBubble from '../components/MessageBubble';
+import ChatLayout from '../layouts/ChatLayout.tsx';
+import ChatBox from '../components/ChatBox.tsx';
+import MessageBubble from '../components/MessageBubble.tsx';
 import { useApp } from '../context/AppContext';
 import { generateTextResponse } from '../services/geminiService';
 import { AppMode } from '../types';

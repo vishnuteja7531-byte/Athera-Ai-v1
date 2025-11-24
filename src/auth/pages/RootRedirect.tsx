@@ -17,7 +17,7 @@ const RootRedirect: React.FC = () => {
   }
 
   // If user is logged in, redirect to chat, otherwise to login
-  return <Navigate to={user ? "/chat" : "/auth/login"} replace />;
+  return <Navigate to={user ? "/app/chat" : "/auth/login"} replace />;
 };
 
 export default RootRedirect;
