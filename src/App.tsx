@@ -2,15 +2,15 @@
 import React from 'react';
 import AppRouter from './router/AppRouter';
 import { AppProvider } from './context/AppContext';
-import { FirebaseProvider } from './auth/FirebaseProvider';
+import { AuthProvider } from './context/AuthContext';
 
 const App: React.FC = () => {
   return (
-    <FirebaseProvider>
+    <AuthProvider>
       <AppProvider>
         <AppRouter />
       </AppProvider>
-    </FirebaseProvider>
+    </AuthProvider>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../useAuth';
+import { useAuth } from '../../context/AuthContext';
+import { supabase } from '../../lib/supabase/supabaseClient';
 
 const Signup: React.FC = () => {
   const [name, setName] = useState('');
@@ -9,7 +10,7 @@ const Signup: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signUpEmail, signInWithGoogle } = useAuth();
+  const { session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,8 +28,16 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
-      await signUpEmail(email, password, name);
-      navigate('/chat');
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      // Show success message and redirect to login
+      alert('Account created! Please check your email for verification.');
+      navigate('/auth/login');
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
     } finally {
@@ -41,8 +50,12 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
-      await signInWithGoogle();
-      navigate('/chat');
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
+      
+      if (error) throw error;
+      // Navigation will be handled by OAuth redirect
     } catch (err: any) {
       setError(err.message || 'Failed to sign up with Google');
     } finally {

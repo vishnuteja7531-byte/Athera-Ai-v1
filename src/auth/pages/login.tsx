@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../useAuth';
+import { useAuth } from '../../context/AuthContext';
+import { supabase } from '../../lib/supabase/supabaseClient';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signInEmail, signInWithGoogle } = useAuth();
+  const { session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,8 +17,14 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      await signInEmail(email, password);
-      navigate('/chat');
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      navigate('/app/chat');
     } catch (err: any) {
       setError(err.message || 'Failed to sign in');
     } finally {
@@ -30,8 +37,12 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      await signInWithGoogle();
-      navigate('/chat');
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
+      
+      if (error) throw error;
+      // Navigation will be handled by OAuth redirect
     } catch (err: any) {
       setError(err.message || 'Failed to sign in with Google');
     } finally {

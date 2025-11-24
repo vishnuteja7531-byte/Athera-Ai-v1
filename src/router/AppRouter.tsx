@@ -14,12 +14,12 @@ const AppRouter: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<RootRedirect />} />
-        <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-        <Route path="/agent-dashboard" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
-        <Route path="/deepsearch" element={<ProtectedRoute><DeepSearchResults /></ProtectedRoute>} />
+        <Route path="/app/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+        <Route path="/app/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/app/agent-dashboard" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
+        <Route path="/app/deepsearch" element={<ProtectedRoute><DeepSearchResults /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
