@@ -1,0 +1,7 @@
+{
+  "name": "Athera AI V1",
+  "description": "A next-generation AI interface featuring agentic capabilities, deep search, and voice interactions using the Gemini API.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
